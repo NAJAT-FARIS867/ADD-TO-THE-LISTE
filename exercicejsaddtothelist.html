@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 50px auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+#taskInput {
+  margin-bottom: 20px;
+}
+
+#taskInputField {
+  width: 70%;
+  padding: 8px;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Add to the List</h1>
+    <div id="taskInput">
+      <input type="text" id="taskInputField" placeholder="Enter task...">
+      <button onclick="addTask()">Add Task</button>
+    </div>
+    <table id="taskTable">
+      <tr>
+        <th>Task</th>
+        <th>Action</th>
+      </tr>
+    </table>
+  </div>
+  <script>
+    function addTask() {
+  var taskInputField = document.getElementById("taskInputField");
+  var task = taskInputField.value.trim();
+
+  if (task !== "") {
+    var table = document.getElementById("taskTable");
+    var newRow = table.insertRow(-1);
+
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+
+    cell1.innerHTML = task;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function() {
+      var row = this.parentNode.parentNode;
+      row.parentNode.removeChild(row);
+    };
+
+    var doneButton = document.createElement("button");
+    doneButton.innerHTML = "Done";
+    doneButton.onclick = function() {
+      this.parentNode.parentNode.style.textDecoration = "line-through";
+      this.disabled = true;
+    };
+
+    cell2.appendChild(deleteButton);
+    cell2.appendChild(doneButton);
+
+    taskInputField.value = "";
+  } else {
+    alert("Please enter a task.");
+  }
+}
+
+  </script>
+</body>
+</html>
